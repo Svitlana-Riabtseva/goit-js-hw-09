@@ -46,5 +46,23 @@ const onFeedbackFormSubmit = event => {
   console.log(formData);
 };
 
+// чистимо елементити форми після сабміту
+
+const onFeedbackFormSubmit = event => {
+  event.preventDefault();
+
+  const email = feedbackFormEl.elements['email'].value.trim();
+  const message = feedbackFormEl.elements['message'].value.trim();
+
+  if (!email || !message) {
+    alert('Fill please all fields');
+    return;
+  }
+
+  event.target.reset(); // чистяться елементити форми
+  localStorage.removeItem('feedback-form-state'); // чиститься локал сторідж точечно по ключу
+  formData = { email: '', message: '' }; // чиститься обʼект formData
+};
+
 feedBackFormEl.addEventListener('input', onFormFieldChange);
 feedBackFormEl.addEventListener('submit', onFeedbackFormSubmit);
